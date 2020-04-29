@@ -1,3 +1,4 @@
+import datetime
 import random
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -6,6 +7,12 @@ class Ui_main_window(object):
     def setupUi(self, main_window):
         
         self.running_applet = False
+        self.watch_counter = 0
+        self.is_watch_reset = True
+
+        self.watch_timer = QtCore.QTimer()
+        self.watch_timer.timeout.connect(self.run_watch)
+        self.watch_timer.setInterval(1)
 
         main_window.setObjectName("main_window")
         main_window.resize(739, 446)
@@ -25,20 +32,17 @@ class Ui_main_window(object):
         self.app_descr.setObjectName("app_descr")
         self.button_15min_words = QtWidgets.QPushButton(self.page_main_menu)
         self.button_15min_words.setGeometry(QtCore.QRect(430, 240, 201, 23))
-        self.button_15min_words.setStyleSheet("background-color: rgb(116, 116, 116);\n"
-"color: rgb(255, 255, 255);")
+        self.button_15min_words.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_15min_words.setObjectName("button_15min_words")
         self.button_15min_words.clicked.connect(self.open_window_15min_words)
         self.button_exit = QtWidgets.QPushButton(self.page_main_menu)
         self.button_exit.setGeometry(QtCore.QRect(340, 400, 80, 23))
-        self.button_exit.setStyleSheet("background-color: rgb(116, 116, 116);\n"
-"color: rgb(255, 255, 255);")
+        self.button_exit.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_exit.setObjectName("button_exit")
         self.button_exit.clicked.connect(self.exit_the_app)
         self.speed_cards_button = QtWidgets.QPushButton(self.page_main_menu)
         self.speed_cards_button.setGeometry(QtCore.QRect(140, 240, 91, 23))
-        self.speed_cards_button.setStyleSheet("background-color: rgb(116, 116, 116);\n"
-"color: rgb(255, 255, 255);")
+        self.speed_cards_button.setStyleSheet("color: rgb(255, 255, 255);")
         self.speed_cards_button.setObjectName("speed_cards_button")
         self.speed_cards_button.clicked.connect(self.open_window_speed_cards)
         self.app_title = QtWidgets.QLabel(self.page_main_menu)
@@ -48,8 +52,7 @@ class Ui_main_window(object):
         self.app_title.setObjectName("app_title")
         self.button_5min_num = QtWidgets.QPushButton(self.page_main_menu)
         self.button_5min_num.setGeometry(QtCore.QRect(260, 240, 141, 23))
-        self.button_5min_num.setStyleSheet("background-color: rgb(116, 116, 116);\n"
-"color: rgb(255, 255, 255);")
+        self.button_5min_num.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_5min_num.setObjectName("button_5min_num")
         self.button_5min_num.clicked.connect(self.open_window_5min_nums)
         self.stacked_windows.addWidget(self.page_main_menu)
@@ -99,6 +102,11 @@ class Ui_main_window(object):
         self.card_image = QtWidgets.QLabel(self.page_speedcards)
         self.card_image.setGeometry(QtCore.QRect(270, 150, 181, 261))
         self.card_image.setText("")
+        pixmap = QtGui.QPixmap("card_images/back.png")
+        self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+        self.lcdNumber = QtWidgets.QLCDNumber(self.page_speedcards)
+        self.lcdNumber.setGeometry(QtCore.QRect(590, 160, 111, 31))
+        self.lcdNumber.setObjectName("lcdNumber")
         self.stacked_windows.addWidget(self.page_speedcards)
 
 #========================================================================================
@@ -158,6 +166,7 @@ class Ui_main_window(object):
             print("Unpausing the applet")
             self.button_pause.setText(self._translate("MainWindow","pause"))
             self.running_applet = not self.running_applet
+            self.start_watch()
             self.update_image()
 
     def exit_the_app(self):
@@ -177,6 +186,10 @@ class Ui_main_window(object):
         self.stacked_windows.setCurrentIndex(3)
 
     def return_to_main_menu(self):
+        self.watch_reset()
+        self.counter = 0
+        pixmap = QtGui.QPixmap("card_images/back.png")
+        self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
         self.running_applet = False
         print("returning to the main menu")
         self.stacked_windows.setCurrentIndex(0)
@@ -193,9 +206,11 @@ class Ui_main_window(object):
             self.counter += 1
         if self.counter == 52:
                 self.running_applet = False
+                self.stop_watch()
     def image_display(self):
         self.time_step = self.doubleSpinBox.value()
         if self.running_applet == False:
+            self.start_watch()
             ranks = [str(n) for n in range(2,11)] + list('JQKA')
             suits = ['S', 'D', 'C', 'H']
             Deck = [rank + suit for suit in suits for rank in ranks]
@@ -214,7 +229,31 @@ class Ui_main_window(object):
             self.running_applet = True
             self.update_image()
 
+    def showLCD(self):
+        text = str(datetime.timedelta(milliseconds=self.watch_counter))[:-3]
+        self.lcdNumber.setDigitCount(11)
+        if not self.is_watch_reset:  # if "is_watch_reset" is False
+            self.lcdNumber.display(text)
+        else:
+            self.lcdNumber.display('0:00:00.000')
 
+    def run_watch(self):
+        self.watch_counter += 1
+        self.showLCD()
+
+    def start_watch(self):
+        self.watch_timer.start()
+        self.is_watch_reset = False
+
+    def stop_watch(self):
+        self.watch_timer.stop()
+        self.watch_counter = 0
+            
+    def watch_reset(self):
+        self.watch_timer.stop()
+        self.watch_counter = 0
+        self.is_watch_reset = True
+        self.showLCD()
 #========================================================================================
 
     def retranslateUi(self, main_window):
