@@ -2,6 +2,7 @@ import datetime
 import random
 import numpy as np
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sys
 
 
 class Ui_main_window(object):
@@ -59,6 +60,16 @@ class Ui_main_window(object):
         self.button_5min_num.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_5min_num.setObjectName("button_5min_num")
         self.button_5min_num.clicked.connect(self.open_window_5min_nums)
+        self.button_sn = QtWidgets.QPushButton(self.page_main_menu)
+        self.button_sn.setGeometry(QtCore.QRect(140, 290, 121, 23))
+        self.button_sn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_sn.setObjectName("button_sn")
+        self.button_sn.clicked.connect(self.open_window_sn)
+        self.button_bn = QtWidgets.QPushButton(self.page_main_menu)
+        self.button_bn.setGeometry(QtCore.QRect(280, 290, 121, 23))
+        self.button_bn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_bn.setObjectName("button_bn")
+        self.button_bn.clicked.connect(self.open_window_bn)
         self.stacked_windows.addWidget(self.page_main_menu)
 
 #========================================================================================
@@ -79,10 +90,11 @@ class Ui_main_window(object):
         self.button_pause.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_pause.setObjectName("button_pause")
         self.button_pause.clicked.connect(self.pause_action)
-        self.button_hide_timer = QtWidgets.QPushButton(self.page_speedcards)
-        self.button_hide_timer.setGeometry(QtCore.QRect(230, 100, 80, 23))
+        self.button_hide_timer = QtWidgets.QCheckBox(self.page_speedcards)
+        self.button_hide_timer.setGeometry(QtCore.QRect(230, 100, 82, 23))
         self.button_hide_timer.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_hide_timer.setObjectName("button_hide_timer")
+        self.button_hide_timer.clicked.connect(self.hide_timer)
         self.button_recall = QtWidgets.QPushButton(self.page_speedcards)
         self.button_recall.setGeometry(QtCore.QRect(330, 100, 80, 23))
         self.button_recall.setStyleSheet("color: rgb(255, 255, 255);")
@@ -93,6 +105,18 @@ class Ui_main_window(object):
         self.doubleSpinBox.setObjectName("doubleSpinBox")
         self.doubleSpinBox.setMinimum(0)
         self.doubleSpinBox.setDecimals(2)
+        self.button_next_sc = QtWidgets.QPushButton(self.page_speedcards)
+        self.button_next_sc.setGeometry(QtCore.QRect(590, 280, 80, 23))
+        self.button_next_sc.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_next_sc.clicked.connect(self.manual_next)
+        self.button_next_sc.setObjectName("button_next_sc")
+        self.button_next_sc.setVisible(False)
+        self.button_prev_sc = QtWidgets.QPushButton(self.page_speedcards)
+        self.button_prev_sc.setGeometry(QtCore.QRect(590, 320, 80, 23))
+        self.button_prev_sc.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_prev_sc.setObjectName("button_prev_sc")
+        self.button_prev_sc.clicked.connect(self.manual_prev)
+        self.button_prev_sc.setVisible(False)
         self.button_quit = QtWidgets.QPushButton(self.page_speedcards)
         self.button_quit.setGeometry(QtCore.QRect(430, 100, 141, 23))
         self.button_quit.setStyleSheet("color: rgb(255, 255, 255);")
@@ -115,6 +139,7 @@ class Ui_main_window(object):
         self.checkBox.setGeometry(QtCore.QRect(590, 210, 85, 21))
         self.checkBox.setStyleSheet("color: rgb(255, 255, 255);")
         self.checkBox.setObjectName("checkBox")
+        self.checkBox.stateChanged.connect(self.manual_mode)
         self.stacked_windows.addWidget(self.page_speedcards)
 
 #========================================================================================
@@ -184,6 +209,62 @@ class Ui_main_window(object):
 
 #========================================================================================
 
+        self.page_15min_words = QtWidgets.QWidget()
+        self.page_15min_words.setObjectName("page_15min_words")
+        self.button_begin_7 = QtWidgets.QPushButton(self.page_15min_words)
+        self.button_begin_7.setGeometry(QtCore.QRect(30, 50, 80, 23))
+        self.button_begin_7.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_begin_7.setObjectName("button_begin_7")
+        self.button_recall_4 = QtWidgets.QPushButton(self.page_15min_words)
+        self.button_recall_4.setGeometry(QtCore.QRect(130, 50, 80, 23))
+        self.button_recall_4.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_recall_4.setObjectName("button_recall_4")
+        self.button_quit_7 = QtWidgets.QPushButton(self.page_15min_words)
+        self.button_quit_7.setGeometry(QtCore.QRect(230, 50, 131, 23))
+        self.button_quit_7.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_quit_7.setObjectName("button_quit_7")
+        self.button_exit_10 = QtWidgets.QPushButton(self.page_15min_words)
+        self.button_exit_10.setGeometry(QtCore.QRect(380, 50, 80, 23))
+        self.button_exit_10.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_exit_10.setObjectName("button_exit_10")
+        self.lcdNumber_15min_words = QtWidgets.QLCDNumber(self.page_15min_words)
+        self.lcdNumber_15min_words.setGeometry(QtCore.QRect(640, 50, 64, 23))
+        self.lcdNumber_15min_words.setObjectName("lcdNumber_15min_words")
+        self.stacked_windows.addWidget(self.page_15min_words)
+
+#========================================================================================
+
+        self.page_sn = QtWidgets.QWidget()
+        self.page_sn.setObjectName("page_sn")
+        self.begin_sn = QtWidgets.QPushButton(self.page_sn)
+        self.begin_sn.setGeometry(QtCore.QRect(30, 40, 80, 23))
+        self.begin_sn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.begin_sn.setObjectName("begin_sn")
+        self.recall_sn = QtWidgets.QPushButton(self.page_sn)
+        self.recall_sn.setGeometry(QtCore.QRect(130, 40, 80, 23))
+        self.recall_sn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.recall_sn.setObjectName("recall_sn")
+        self.quit_sn = QtWidgets.QPushButton(self.page_sn)
+        self.quit_sn.setGeometry(QtCore.QRect(440, 400, 151, 23))
+        self.quit_sn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.quit_sn.setObjectName("quit_sn")
+        self.exit_sn = QtWidgets.QPushButton(self.page_sn)
+        self.exit_sn.setGeometry(QtCore.QRect(620, 400, 80, 23))
+        self.exit_sn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.exit_sn.setObjectName("exit_sn")
+        self.timer_sn = QtWidgets.QLCDNumber(self.page_sn)
+        self.timer_sn.setGeometry(QtCore.QRect(550, 30, 151, 31))
+        self.timer_sn.setObjectName("timer_sn")
+        self.hide_timer_sn = QtWidgets.QCheckBox(self.page_sn)
+        self.hide_timer_sn.setGeometry(QtCore.QRect(610, 80, 85, 21))
+        self.hide_timer_sn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.hide_timer_sn.setObjectName("hide_timer_sn")
+        self.num_disp_sn = QtWidgets.QTextBrowser(self.page_sn)
+        self.num_disp_sn.setGeometry(QtCore.QRect(30, 80, 181, 331))
+        self.num_disp_sn.setObjectName("num_disp_sn")
+        self.stacked_windows.addWidget(self.page_sn)
+
+#========================================================================================
         main_window.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(main_window)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 739, 20))
@@ -228,6 +309,14 @@ class Ui_main_window(object):
     def open_window_15min_words(self):
         print("15min")
         self.stacked_windows.setCurrentIndex(3)
+    
+    def open_window_sn(self):
+        print("spoken numbers")
+        self.stacked_windows.setCurrentIndex(4)
+
+    def open_window_bn(self):
+        print("spoken_numbers")
+        self.stacked_windows.setCurrentIndex(5)
 
     def return_to_main_menu(self):
         self.watch_reset()
@@ -254,7 +343,8 @@ class Ui_main_window(object):
             print(str(self.images[self.counter]))
             self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
             self.card_image.setObjectName("card_image")
-            QtCore.QTimer.singleShot(self.time_step*1260, self.update_image)
+            if not self.checkBox.isChecked():
+                QtCore.QTimer.singleShot(self.time_step*1260, self.update_image)
             self.counter += 1
         if self.counter == 52:
                 self.running_applet = False
@@ -355,7 +445,31 @@ class Ui_main_window(object):
             self.display_num_matrix()
 
     def hide_timer(self):
+        if self.app_no == 1:
+            self.lcdNumber.setVisible(not self.button_hide_timer.isChecked())
+        if self.app_no == 2:
             self.lcdNumber_5min.setVisible(not self.hide_clock_checkbox.isChecked())
+
+    def manual_mode(self):
+        self.button_next_sc.setVisible(self.checkBox.isChecked())
+        self.button_prev_sc.setVisible(self.checkBox.isChecked())
+        if self.checkBox.isChecked():
+             self.time_step = 1704351
+        else :
+             self.time_step = self.doubleSpinBox.value()
+
+    def manual_next(self):
+        if self.counter < 52:
+            self.update_image()
+        
+
+    def manual_prev(self):
+        self.counter -= 2
+        if self.counter < 0:
+            self.counter = 0
+        self.update_image()
+   
+    
 #========================================================================================
 
     def retranslateUi(self, main_window):
@@ -389,11 +503,23 @@ class Ui_main_window(object):
         self.checkBox.setText(self._translate("main_window", "manual"))
         self.button_recall_2.setText(self._translate("main_window", "recall"))
         self.hide_clock_checkbox.setText(self._translate("main_window", "hide clock"))
+        self.button_next_sc.setText(self._translate("main_window", "next"))
+        self.button_prev_sc.setText(self._translate("main_window", "prev"))
+        self.button_sn.setText(self._translate("main_window", "Spoken numbers"))
+        self.button_bn.setText(self._translate("main_window", "Binary numbers"))
+        self.button_begin_7.setText(self._translate("main_window", "begin"))
+        self.button_recall_4.setText(self._translate("main_window", "recall"))
+        self.button_quit_7.setText(self._translate("main_window", "quit to main menu"))
+        self.button_exit_10.setText(self._translate("main_window", "exit"))
+        self.begin_sn.setText(self._translate("main_window", "begin"))
+        self.recall_sn.setText(self._translate("main_window", "recall"))
+        self.quit_sn.setText(self._translate("main_window", "quit to main menu"))
+        self.exit_sn.setText(self._translate("main_window", "exit"))
+        self.hide_timer_sn.setText(self._translate("main_window", "hide timer"))
 
 #========================================================================================
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_main_window()
