@@ -9,6 +9,7 @@ class Ui_main_window(object):
         
         self.running_applet = False
         self.counter = 0
+        self.app_no = 0
 
         self.watch_counter = 0
         self.is_watch_reset = True
@@ -142,22 +143,24 @@ class Ui_main_window(object):
         self.button_prev = QtWidgets.QPushButton(self.page_5min_nums)
         self.button_prev.setGeometry(QtCore.QRect(230, 380, 80, 23))
         self.button_prev.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_prev.setDisabled(True)
         self.button_prev.setObjectName("button_prev")
         # next button
         self.button_next = QtWidgets.QPushButton(self.page_5min_nums)
-        self.button_next.setGeometry(QtCore.QRect(340, 380, 80, 23))
+        self.button_next.setGeometry(QtCore.QRect(380, 380, 80, 23))
         self.button_next.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_next.setDisabled(True)
         self.button_next.setObjectName("button_next")
         self.button_next.clicked.connect(self.click_next)
-        # pause button
-        self.button_pause_2 = QtWidgets.QPushButton(self.page_5min_nums)
-        self.button_pause_2.setGeometry(QtCore.QRect(120, 50, 80, 23))
-        self.button_pause_2.setStyleSheet("color: rgb(255, 255, 255);")
-        self.button_pause_2.setObjectName("button_pause_2")
+        # recall button
+        self.button_recall_2 = QtWidgets.QPushButton(self.page_5min_nums)
+        self.button_recall_2.setGeometry(QtCore.QRect(120, 50, 80, 23))
+        self.button_recall_2.setStyleSheet("color: rgb(255, 255, 255);")
+        self.button_recall_2.setObjectName("button_recall_2")
         self.button_prev.clicked.connect(self.click_prev)
         # lcd watch 
         self.lcdNumber_5min = QtWidgets.QLCDNumber(self.page_5min_nums)
-        self.lcdNumber_5min.setGeometry(QtCore.QRect(630, 50, 64, 23))
+        self.lcdNumber_5min.setGeometry(QtCore.QRect(563, 32, 131, 41))
         self.lcdNumber_5min.setObjectName("lcdNumber_5min")
         # number display panel
         self.disp_5min_panel = QtWidgets.QTextBrowser(self.page_5min_nums)
@@ -165,6 +168,18 @@ class Ui_main_window(object):
         self.disp_5min_panel.setObjectName("disp_5min_panel")
         self.disp_5min_panel.setStyleSheet("font: 13.5pt \"Sans Serif\";\n"
 "color: rgb(255, 255, 255);")
+        # page no label
+        self.page_no_label = QtWidgets.QLabel(self.page_5min_nums)
+        self.page_no_label.setGeometry(QtCore.QRect(327, 380, 34, 21))
+        self.page_no_label.setObjectName("page_no_label")
+        self.page_no_label.setStyleSheet("color: rgb(255, 255, 255);")
+        # hide clock checkbox
+        self.hide_clock_checkbox = QtWidgets.QCheckBox(self.page_5min_nums)
+        self.hide_clock_checkbox.setGeometry(QtCore.QRect(620, 90, 85, 21))
+        self.hide_clock_checkbox.setStyleSheet("color: rgb(255, 255, 255);")
+        self.hide_clock_checkbox.setObjectName("hide_clock_checkbox")
+        self.hide_clock_checkbox.stateChanged.connect(self.hide_timer)
+
         self.stacked_windows.addWidget(self.page_5min_nums)
 
 #========================================================================================
@@ -186,14 +201,17 @@ class Ui_main_window(object):
     def pause_action(self):
         if self.running_applet == True:
             print("Pausing the applet")
-            self.button_pause.setText(self._translate("MainWindow","unpause"))
+            if self.app_no == 1:
+                self.button_pause.setText(self._translate("main_window","unpause"))
             self.running_applet = not self.running_applet
         else:
             print("Unpausing the applet")
-            self.button_pause.setText(self._translate("MainWindow","pause"))
+            if self.app_no == 1:
+                self.button_pause.setText(self._translate("main_window","pause"))
             self.running_applet = not self.running_applet
             self.start_watch()
-            self.update_image()
+            if self.app_no == 1:
+                self.update_image()
 
     def exit_the_app(self):
         print("Exiting the application")
@@ -214,8 +232,16 @@ class Ui_main_window(object):
     def return_to_main_menu(self):
         self.watch_reset()
         self.counter = 0
-        pixmap = QtGui.QPixmap("card_images/back.png")
-        self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+        if self.app_no == 1:
+            pixmap = QtGui.QPixmap("card_images/back.png")
+            self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+        if self.app_no == 2:
+            self.disp_5min_panel.setPlainText(self._translate("main_window",""))
+            self.page_no_label.setText(self._translate("main_window","{}/10".format(self.counter+1)))
+            self.button_next.setDisabled(True)
+            self.button_prev.setDisabled(True)
+
+        self.app_no = 0
         self.running_applet = False
         print("returning to the main menu")
         self.stacked_windows.setCurrentIndex(0)
@@ -234,6 +260,7 @@ class Ui_main_window(object):
                 self.running_applet = False
                 self.stop_watch()
     def image_display(self):
+        self.app_no = 1
         self.time_step = self.doubleSpinBox.value()
         if self.running_applet == False:
             self.start_watch()
@@ -257,11 +284,18 @@ class Ui_main_window(object):
 
     def showLCD(self):
         text = str(datetime.timedelta(milliseconds=self.watch_counter))[:-3]
-        self.lcdNumber.setDigitCount(11)
-        if not self.is_watch_reset:  # if "is_watch_reset" is False
-            self.lcdNumber.display(text)
-        else:
-            self.lcdNumber.display('0:00:00.000')
+        if self.app_no == 1:
+            self.lcdNumber.setDigitCount(11)
+            if not self.is_watch_reset:  # if "is_watch_reset" is False
+                self.lcdNumber.display(text)
+            else:
+                self.lcdNumber.display('0:00:00.000')
+        if self.app_no == 2:
+            self.lcdNumber_5min.setDigitCount(11)
+            if not self.is_watch_reset:  # if "is_watch_reset" is False
+                self.lcdNumber_5min.display(text)
+            else:
+                self.lcdNumber_5min.display('0:00:00.000')
 
     def run_watch(self):
         self.watch_counter += 1
@@ -282,38 +316,46 @@ class Ui_main_window(object):
         self.showLCD()
     
     def display_num_matrix(self):
+        self.app_no = 2
         print("displaying the number matrix")
         matr2str = '\n'.join('    '.join('%d' %x for x in y) for y in self.num_matrix[self.counter])
         self.disp_5min_panel.setPlainText(self._translate("main_window",matr2str))
 
     def click_next(self):
-        if self.counter == 10:
+        if self.counter >= 9:
             self.button_next.setDisabled(True)
+            self.button_prev.setDisabled(False)
         else:
             self.button_next.setDisabled(False)
+            self.button_prev.setDisabled(False)
             self.counter += 1
+            self.page_no_label.setText(self._translate("main_window","{}/10".format(self.counter+1)))
             self.display_num_matrix()
 
     def click_prev(self):
-        if self.counter == 0:
+        if self.counter <= 0:
             self.button_prev.setDisabled(True)
+            self.button_next.setDisabled(False)
         else:
             self.button_prev.setDisabled(False)
+            self.button_next.setDisabled(False)
             self.counter -= 1
+            self.page_no_label.setText(self._translate("main_window","{}/10".format(self.counter+1)))
             self.display_num_matrix()
 
     def applet_5min_num(self):
-        print("clicked applet 5min num")
+        print("clicked begin applet 5min num")
         if not self.running_applet:
-            print("yo mama")
+            self.counter = 0
             self.running_applet = True
+            self.button_next.setDisabled(False)
             self.num_matrix = np.random.randint(10, size=(10,10,15)) # create a num matrix 15x10x10
             self.start_watch()
-            self.counter = 0
+            self.page_no_label.setText(self._translate("main_window","{}/10".format(self.counter+1)))
             self.display_num_matrix()
 
-#    def hide_timer(self):
-        
+    def hide_timer(self):
+            self.lcdNumber_5min.setVisible(not self.hide_clock_checkbox.isChecked())
 #========================================================================================
 
     def retranslateUi(self, main_window):
@@ -342,9 +384,11 @@ class Ui_main_window(object):
         self.button_begin_2.setText(self._translate("main_window", "begin"))
         self.button_exit_3.setText(self._translate("main_window", "exit"))
         self.button_prev.setText(self._translate("main_window", "prev"))
+        self.disp_5min_panel.setPlainText(self._translate("main_window",""))
         self.button_next.setText(self._translate("main_window", "next"))
         self.checkBox.setText(self._translate("main_window", "manual"))
-        self.button_pause_2.setText(self._translate("main_window", "pause"))
+        self.button_recall_2.setText(self._translate("main_window", "recall"))
+        self.hide_clock_checkbox.setText(self._translate("main_window", "hide clock"))
 
 #========================================================================================
 

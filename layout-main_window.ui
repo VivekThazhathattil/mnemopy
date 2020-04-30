@@ -421,10 +421,10 @@ color: rgb(255, 56, 56)</string>
      <widget class="QLCDNumber" name="lcdNumber_5min">
       <property name="geometry">
        <rect>
-        <x>630</x>
-        <y>50</y>
-        <width>64</width>
-        <height>23</height>
+        <x>563</x>
+        <y>32</y>
+        <width>131</width>
+        <height>41</height>
        </rect>
       </property>
      </widget>
@@ -438,7 +438,7 @@ color: rgb(255, 56, 56)</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label_6">
+     <widget class="QLabel" name="page_no_label">
       <property name="geometry">
        <rect>
         <x>330</x>
@@ -449,6 +449,22 @@ color: rgb(255, 56, 56)</string>
       </property>
       <property name="text">
        <string>0/10</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="hide_clock_checkbox">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>90</y>
+        <width>85</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>hide clock</string>
       </property>
      </widget>
     </widget>
