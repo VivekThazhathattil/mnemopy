@@ -58,8 +58,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(116, 116, 116);
-color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>15-minute random list of words</string>
@@ -75,8 +74,7 @@ color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(116, 116, 116);
-color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Exit</string>
@@ -92,8 +90,7 @@ color: rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(116, 116, 116);
-color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>Speed Cards</string>
@@ -126,8 +123,7 @@ color: rgb(255, 56, 56)</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(116, 116, 116);
-color: rgb(255, 255, 255);</string>
+       <string notr="true">color: rgb(255, 255, 255);</string>
       </property>
       <property name="text">
        <string>5-minute numbers</string>
@@ -266,8 +262,272 @@ color: rgb(255, 255, 255);</string>
        <string>exit</string>
       </property>
      </widget>
+     <widget class="QLabel" name="card_image">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>150</y>
+        <width>181</width>
+        <height>261</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>card_images/7S.png</pixmap>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="lcdNumber">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>160</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>60</y>
+        <width>51</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>seconds</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>210</y>
+        <width>85</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>manual</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="page_5min_nums"/>
+    <widget class="QWidget" name="page_5min_nums">
+     <widget class="QPushButton" name="button_quit_2">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>50</y>
+        <width>131</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>quit to main menu</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_begin_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>50</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>begin</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_exit_3">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>50</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>exit</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_prev">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>380</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>prev</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_next">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>380</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>next</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_pause_2">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>50</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>pause</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="lcdNumber_5min">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>50</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="disp_5min_panel">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>100</y>
+        <width>511</width>
+        <height>251</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>380</y>
+        <width>31</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0/10</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_15min_words">
+     <widget class="QPushButton" name="button_begin_7">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>50</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>begin</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_recall_4">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>50</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>recall</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_quit_7">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>50</y>
+        <width>131</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>quit to main menu</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_exit_10">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>50</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>exit</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="lcdNumber_15min_words">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>50</y>
+        <width>64</width>
+        <height>23</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

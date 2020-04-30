@@ -1,5 +1,6 @@
 import datetime
 import random
+import numpy as np
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -7,6 +8,8 @@ class Ui_main_window(object):
     def setupUi(self, main_window):
         
         self.running_applet = False
+        self.counter = 0
+
         self.watch_counter = 0
         self.is_watch_reset = True
 
@@ -107,38 +110,61 @@ class Ui_main_window(object):
         self.lcdNumber = QtWidgets.QLCDNumber(self.page_speedcards)
         self.lcdNumber.setGeometry(QtCore.QRect(590, 160, 111, 31))
         self.lcdNumber.setObjectName("lcdNumber")
+        self.checkBox = QtWidgets.QCheckBox(self.page_speedcards)
+        self.checkBox.setGeometry(QtCore.QRect(590, 210, 85, 21))
+        self.checkBox.setStyleSheet("color: rgb(255, 255, 255);")
+        self.checkBox.setObjectName("checkBox")
         self.stacked_windows.addWidget(self.page_speedcards)
 
 #========================================================================================
 
         self.page_5min_nums = QtWidgets.QWidget()
         self.page_5min_nums.setObjectName("page_5min_nums")
+        # quit button
         self.button_quit_2 = QtWidgets.QPushButton(self.page_5min_nums)
         self.button_quit_2.setGeometry(QtCore.QRect(210, 50, 131, 23))
         self.button_quit_2.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_quit_2.setObjectName("button_quit_2")
         self.button_quit_2.clicked.connect(self.return_to_main_menu)
+        # begin button
         self.button_begin_2 = QtWidgets.QPushButton(self.page_5min_nums)
         self.button_begin_2.setGeometry(QtCore.QRect(30, 50, 80, 23))
         self.button_begin_2.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_begin_2.setObjectName("button_begin_2")
+        self.button_begin_2.clicked.connect(self.applet_5min_num)
+        # exit button
         self.button_exit_3 = QtWidgets.QPushButton(self.page_5min_nums)
         self.button_exit_3.setGeometry(QtCore.QRect(350, 50, 80, 23))
         self.button_exit_3.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_exit_3.setObjectName("button_exit_3")
         self.button_exit_3.clicked.connect(self.exit_the_app)
+        # prev button
         self.button_prev = QtWidgets.QPushButton(self.page_5min_nums)
         self.button_prev.setGeometry(QtCore.QRect(230, 380, 80, 23))
         self.button_prev.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_prev.setObjectName("button_prev")
+        # next button
         self.button_next = QtWidgets.QPushButton(self.page_5min_nums)
         self.button_next.setGeometry(QtCore.QRect(340, 380, 80, 23))
         self.button_next.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_next.setObjectName("button_next")
+        self.button_next.clicked.connect(self.click_next)
+        # pause button
         self.button_pause_2 = QtWidgets.QPushButton(self.page_5min_nums)
         self.button_pause_2.setGeometry(QtCore.QRect(120, 50, 80, 23))
         self.button_pause_2.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_pause_2.setObjectName("button_pause_2")
+        self.button_prev.clicked.connect(self.click_prev)
+        # lcd watch 
+        self.lcdNumber_5min = QtWidgets.QLCDNumber(self.page_5min_nums)
+        self.lcdNumber_5min.setGeometry(QtCore.QRect(630, 50, 64, 23))
+        self.lcdNumber_5min.setObjectName("lcdNumber_5min")
+        # number display panel
+        self.disp_5min_panel = QtWidgets.QTextBrowser(self.page_5min_nums)
+        self.disp_5min_panel.setGeometry(QtCore.QRect(90, 100, 511, 251))
+        self.disp_5min_panel.setObjectName("disp_5min_panel")
+        self.disp_5min_panel.setStyleSheet("font: 13.5pt \"Sans Serif\";\n"
+"color: rgb(255, 255, 255);")
         self.stacked_windows.addWidget(self.page_5min_nums)
 
 #========================================================================================
@@ -202,7 +228,7 @@ class Ui_main_window(object):
             print(str(self.images[self.counter]))
             self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
             self.card_image.setObjectName("card_image")
-            QtCore.QTimer.singleShot(self.time_step*1000, self.update_image)
+            QtCore.QTimer.singleShot(self.time_step*1260, self.update_image)
             self.counter += 1
         if self.counter == 52:
                 self.running_applet = False
@@ -254,6 +280,40 @@ class Ui_main_window(object):
         self.watch_counter = 0
         self.is_watch_reset = True
         self.showLCD()
+    
+    def display_num_matrix(self):
+        print("displaying the number matrix")
+        matr2str = '\n'.join('    '.join('%d' %x for x in y) for y in self.num_matrix[self.counter])
+        self.disp_5min_panel.setPlainText(self._translate("main_window",matr2str))
+
+    def click_next(self):
+        if self.counter == 10:
+            self.button_next.setDisabled(True)
+        else:
+            self.button_next.setDisabled(False)
+            self.counter += 1
+            self.display_num_matrix()
+
+    def click_prev(self):
+        if self.counter == 0:
+            self.button_prev.setDisabled(True)
+        else:
+            self.button_prev.setDisabled(False)
+            self.counter -= 1
+            self.display_num_matrix()
+
+    def applet_5min_num(self):
+        print("clicked applet 5min num")
+        if not self.running_applet:
+            print("yo mama")
+            self.running_applet = True
+            self.num_matrix = np.random.randint(10, size=(10,10,15)) # create a num matrix 15x10x10
+            self.start_watch()
+            self.counter = 0
+            self.display_num_matrix()
+
+#    def hide_timer(self):
+        
 #========================================================================================
 
     def retranslateUi(self, main_window):
@@ -283,6 +343,7 @@ class Ui_main_window(object):
         self.button_exit_3.setText(self._translate("main_window", "exit"))
         self.button_prev.setText(self._translate("main_window", "prev"))
         self.button_next.setText(self._translate("main_window", "next"))
+        self.checkBox.setText(self._translate("main_window", "manual"))
         self.button_pause_2.setText(self._translate("main_window", "pause"))
 
 #========================================================================================
