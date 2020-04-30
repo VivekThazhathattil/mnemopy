@@ -161,6 +161,25 @@ color: rgb(255, 56, 56)</string>
        <string>Binary numbers</string>
       </property>
      </widget>
+     <widget class="QLabel" name="heart_img">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>70</y>
+        <width>41</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>love.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="page_speedcards">
      <widget class="QLabel" name="time_delay_label">
@@ -320,7 +339,7 @@ color: rgb(255, 56, 56)</string>
        </rect>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="seconds_label">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -382,6 +401,22 @@ color: rgb(255, 56, 56)</string>
       </property>
       <property name="text">
        <string>prev</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="card_no_sc">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>300</y>
+        <width>41</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color:rgb(255, 255, 255)</string>
+      </property>
+      <property name="text">
+       <string>--/52</string>
       </property>
      </widget>
     </widget>
@@ -604,6 +639,16 @@ color: rgb(255, 56, 56)</string>
         <y>50</y>
         <width>64</width>
         <height>23</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tableView">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>160</y>
+        <width>256</width>
+        <height>192</height>
        </rect>
       </property>
      </widget>

@@ -71,6 +71,12 @@ class Ui_main_window(object):
         self.button_bn.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_bn.setObjectName("button_bn")
         self.button_bn.clicked.connect(self.open_window_bn)
+        self.heart_img = QtWidgets.QLabel(self.page_main_menu)
+        self.heart_img.setGeometry(QtCore.QRect(560, 70, 41, 41))
+        self.heart_img.setText("")
+        self.heart_img.setPixmap(QtGui.QPixmap("img/love.png"))
+        self.heart_img.setScaledContents(True)
+        self.heart_img.setObjectName("heart_img")
         self.stacked_windows.addWidget(self.page_main_menu)
 
 #_______________________ SPEED CARDS____________________________
@@ -81,31 +87,38 @@ class Ui_main_window(object):
         self.time_delay_label.setGeometry(QtCore.QRect(30, 60, 121, 16))
         self.time_delay_label.setStyleSheet("color:rgb(255, 255, 255)")
         self.time_delay_label.setObjectName("time_delay_label")
+        self.time_delay_label.setVisible(True)
         self.button_begin = QtWidgets.QPushButton(self.page_speedcards)
         self.button_begin.setGeometry(QtCore.QRect(30, 100, 80, 23))
         self.button_begin.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_begin.setObjectName("button_begin")
-        self.button_begin.clicked.connect(self.image_display)
+        self.button_begin.clicked.connect(self.applet_sc)
+        self.button_begin.setVisible(True)
         self.button_pause = QtWidgets.QPushButton(self.page_speedcards)
         self.button_pause.setGeometry(QtCore.QRect(130, 100, 80, 23))
         self.button_pause.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_pause.setObjectName("button_pause")
+        self.button_pause.setVisible(False)
         self.button_pause.clicked.connect(self.pause_action)
         self.button_hide_timer = QtWidgets.QCheckBox(self.page_speedcards)
         self.button_hide_timer.setGeometry(QtCore.QRect(230, 100, 82, 23))
         self.button_hide_timer.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_hide_timer.setObjectName("button_hide_timer")
         self.button_hide_timer.clicked.connect(self.hide_timer)
+        self.button_hide_timer.setVisible(True)
         self.button_recall = QtWidgets.QPushButton(self.page_speedcards)
         self.button_recall.setGeometry(QtCore.QRect(330, 100, 80, 23))
         self.button_recall.setStyleSheet("color: rgb(255, 255, 255);")
         self.button_recall.setObjectName("button_recall")
+        self.button_recall.setVisible(False)
+        self.button_recall.clicked.connect(self.recall_sc_fn)
         self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.page_speedcards)
         self.doubleSpinBox.setGeometry(QtCore.QRect(160, 60, 61, 24))
         self.doubleSpinBox.setStyleSheet("background-color: rgb(102, 102, 102);")
         self.doubleSpinBox.setObjectName("doubleSpinBox")
         self.doubleSpinBox.setMinimum(0)
         self.doubleSpinBox.setDecimals(2)
+        self.doubleSpinBox.setVisible(True)
         self.button_next_sc = QtWidgets.QPushButton(self.page_speedcards)
         self.button_next_sc.setGeometry(QtCore.QRect(590, 280, 80, 23))
         self.button_next_sc.setStyleSheet("color: rgb(255, 255, 255);")
@@ -141,6 +154,10 @@ class Ui_main_window(object):
         self.checkBox.setStyleSheet("color: rgb(255, 255, 255);")
         self.checkBox.setObjectName("checkBox")
         self.checkBox.stateChanged.connect(self.manual_mode)
+        self.card_no_sc = QtWidgets.QLabel(self.page_speedcards)
+        self.card_no_sc.setGeometry(QtCore.QRect(530, 300, 41, 20))
+        self.card_no_sc.setStyleSheet("color:rgb(255, 255, 255)")
+        self.card_no_sc.setObjectName("card_no_sc")
         self.stacked_windows.addWidget(self.page_speedcards)
 
 #___________________5 MINUTE WORDS___________________________
@@ -408,6 +425,7 @@ class Ui_main_window(object):
             self.page_no_fmn.setText(self._translate("main_window","{}/10".format(self.counter+1)))
             self.button_next.setDisabled(True)
             self.button_prev.setDisabled(True)
+            self.button_begin.setText(self._translate("main_window","begin"))
         if self.app_no == 4:
             self.speaker_icon_sn.setVisible(False)
             self.num_disp_sn.setVisible(False)
@@ -424,24 +442,37 @@ class Ui_main_window(object):
         self.stacked_windows.setCurrentIndex(0)
 
     def update_image(self):
-        if self.counter < 52 and self.running_applet == True:
+        if self.counter < 52:
             print("counter = " + str(self.counter))
             pic_temp = str(self.images[self.counter])
             pixmap = QtGui.QPixmap(pic_temp)
             print(str(self.images[self.counter]))
             self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
             self.card_image.setObjectName("card_image")
-            if not self.checkBox.isChecked():
-                QtCore.QTimer.singleShot(self.time_step*1260, self.update_image)
             self.counter += 1
-        if self.counter == 52:
-                self.running_applet = False
-                self.stop_watch()
-    def image_display(self):
+            self.card_no_sc.setText(self._translate("main_window", "{}/52".format(str(self.counter))))
+            if not self.checkBox.isChecked() and self.running_applet:
+                QtCore.QTimer.singleShot(self.time_step*1260, self.update_image)
+#        elif self.running_applet == False:
+#            self.counter += 1
+#            update_image(self)
+
+#                self.running_applet = False
+#                self.stop_watch()
+#                self.button_begin.setText(self._translate("main_window","begin"))
+#                self.button_pause.setVisible(False)
+#                self.counter = 0
+
+    def applet_sc(self):
         self.app_no = 1
         self.time_step = self.doubleSpinBox.value()
-        if self.running_applet == False:
+        if self.running_applet == False: # clicked when 'begin' visible, applet not running
+            self.button_begin.setText(self._translate("main_window","stop"))
+            self.button_pause.setVisible(True)
+            self.time_delay_label.setVisible(True)
+            self.doubleSpinBox.setVisible(True)
             self.start_watch()
+            self.button_recall.setVisible(False)
             ranks = [str(n) for n in range(2,11)] + list('JQKA')
             suits = ['S', 'D', 'C', 'H']
             Deck = [rank + suit for suit in suits for rank in ranks]
@@ -458,6 +489,27 @@ class Ui_main_window(object):
             self.counter = 0
             self.running_applet = True
             self.update_image()
+        else: # clicked when 'stop' visible, applet running
+            self.button_begin.setText(self._translate("main_window","begin"))
+            self.button_pause.setVisible(False)
+            self.stop_watch()
+            self.button_recall.setVisible(True)
+            self.running_applet = False
+
+    def recall_sc_fn(self):
+        print("speedcards recall")
+        self.counter = 0
+        pixmap = QtGui.QPixmap("card_images/back.png")
+        self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+        self.card_no_sc.setText(self._translate("main_window", "--/52"))
+        self.button_recall.setVisible(False)
+        self.time_delay_label.setVisible(False)
+        self.doubleSpinBox.setVisible(False)
+        self.button_next_sc.setVisible(True)
+        self.button_prev_sc.setVisible(True)
+        self.button_begin.setText(self._translate("main_window","restart"))
+        self.watch_reset()
+        self.checkBox.setChecked(True)
 
     def showLCD(self):
         text = str(datetime.timedelta(milliseconds=self.watch_counter))[:-3]
@@ -676,6 +728,7 @@ class Ui_main_window(object):
 
     def recall_sn_fn(self):
             self.watch_reset()
+            self.recall_sn.setVisible(False)
             self.num_disp_sn.setVisible(True)
             ls2str = ""
             for i in range(self.counter):
@@ -758,6 +811,7 @@ class Ui_main_window(object):
         self.button_exit_bn.setText(self._translate("main_window", "exit"))
         self.recall_bn.setText(self._translate("main_window", "recall"))
         self.next_bn.setText(self._translate("main_window", "next"))
+        self.card_no_sc.setText(self._translate("main_window", "--/52"))
 
 #========================================================================================
 
