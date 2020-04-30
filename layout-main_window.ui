@@ -129,6 +129,38 @@ color: rgb(255, 56, 56)</string>
        <string>5-minute numbers</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="button_sn">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>290</y>
+        <width>121</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Spoken numbers</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_bn">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>290</y>
+        <width>121</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Binary numbers</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="page_speedcards">
      <widget class="QLabel" name="time_delay_label">
@@ -318,6 +350,38 @@ color: rgb(255, 56, 56)</string>
       </property>
       <property name="text">
        <string>manual</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_next_sc">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>280</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>next</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_prev_sc">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>320</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>prev</string>
       </property>
      </widget>
     </widget>
@@ -540,6 +604,268 @@ color: rgb(255, 56, 56)</string>
         <y>50</y>
         <width>64</width>
         <height>23</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_sn">
+     <widget class="QPushButton" name="begin_sn">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>begin</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="recall_sn">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>40</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>recall</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="quit_sn">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>400</y>
+        <width>151</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>quit to main menu</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="exit_sn">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>400</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>exit</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="timer_sn">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>30</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="hide_timer_sn">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>80</y>
+        <width>85</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>hide timer</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="num_disp_sn">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>80</y>
+        <width>181</width>
+        <height>331</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="speaker_icon_label">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>120</y>
+        <width>161</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_bn">
+     <widget class="QPushButton" name="button_prev_bn">
+      <property name="geometry">
+       <rect>
+        <x>237</x>
+        <y>388</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>prev</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_quit_bn">
+      <property name="geometry">
+       <rect>
+        <x>217</x>
+        <y>58</y>
+        <width>131</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>quit to main menu</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkbox_bn">
+      <property name="geometry">
+       <rect>
+        <x>627</x>
+        <y>98</y>
+        <width>85</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>hide clock</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_begin_bn">
+      <property name="geometry">
+       <rect>
+        <x>37</x>
+        <y>58</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>begin</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="page_no_bn">
+      <property name="geometry">
+       <rect>
+        <x>337</x>
+        <y>388</y>
+        <width>31</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0/10</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="disp_panel_bn">
+      <property name="geometry">
+       <rect>
+        <x>97</x>
+        <y>108</y>
+        <width>511</width>
+        <height>251</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_exit_bn">
+      <property name="geometry">
+       <rect>
+        <x>357</x>
+        <y>58</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>exit</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_recall_bn">
+      <property name="geometry">
+       <rect>
+        <x>127</x>
+        <y>58</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>recall</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_next_bn">
+      <property name="geometry">
+       <rect>
+        <x>387</x>
+        <y>388</y>
+        <width>80</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>next</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="timer_bn">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>40</y>
+        <width>131</width>
+        <height>41</height>
        </rect>
       </property>
      </widget>
