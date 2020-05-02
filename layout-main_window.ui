@@ -645,11 +645,34 @@ color: rgb(255, 56, 56)</string>
      <widget class="QTableView" name="tableView">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>160</y>
-        <width>256</width>
-        <height>192</height>
+        <x>20</x>
+        <y>90</y>
+        <width>701</width>
+        <height>331</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);
+gridline-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="hide_clock_checkbox_2">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>50</y>
+        <width>85</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>hide clock</string>
       </property>
      </widget>
     </widget>
