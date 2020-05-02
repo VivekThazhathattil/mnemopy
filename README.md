@@ -10,11 +10,16 @@
 ### Screenshots: ###
 
 * Main menu
+
+
 ![main_menu](img/main_menu.png?raw=true)
 
 * Speed cards
+
+
 ![sc](img/sc.png?raw=true)
 
 * Random words
-![fmw](img/sc.png?raw=true)
 
+
+![fmw](img/fmw.png?raw=true)
