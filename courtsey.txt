@@ -1,0 +1,2 @@
+https://freesound.org/people/tim.kahn/packs/4372/ - for sound samples used in spoken numbers
+https://gist.github.com/deekayen/4148741 - for word list used in 15min-random words

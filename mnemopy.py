@@ -73,7 +73,7 @@ class Ui_main_window(object):
         self.heart_img = QtWidgets.QLabel(self.page_main_menu)
         self.heart_img.setGeometry(QtCore.QRect(560, 70, 41, 41))
         self.heart_img.setText("")
-        self.heart_img.setPixmap(QtGui.QPixmap("img/love.png"))
+        self.heart_img.setPixmap(QtGui.QPixmap("dat/img/love.png"))
         self.heart_img.setScaledContents(True)
         self.heart_img.setObjectName("heart_img")
         self.stacked_windows.addWidget(self.page_main_menu)
@@ -143,7 +143,7 @@ class Ui_main_window(object):
         self.card_image = QtWidgets.QLabel(self.page_sc)
         self.card_image.setGeometry(QtCore.QRect(270, 150, 181, 261))
         self.card_image.setText("")
-        pixmap = QtGui.QPixmap("card_images/back.png")
+        pixmap = QtGui.QPixmap("dat/sc/back.png")
         self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
         self.lcdNumber = QtWidgets.QLCDNumber(self.page_sc)
         self.lcdNumber.setGeometry(QtCore.QRect(590, 160, 111, 31))
@@ -436,7 +436,7 @@ class Ui_main_window(object):
         self.watch_reset()
         self.counter = 0
         if self.app_no == 1:
-            pixmap = QtGui.QPixmap("card_images/back.png")
+            pixmap = QtGui.QPixmap("dat/sc/back.png")
             self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
         if self.app_no == 2:
             self.disp_panel_fmn.setPlainText(self._translate("main_window",""))
@@ -501,7 +501,7 @@ class Ui_main_window(object):
             
             Cards = random.sample(Deck, 52)
             self.images = []
-            img_path = "card_images/"
+            img_path = "dat/sc/"
             
             for i in range(52):
                 img_name = (Cards[i]+ ".png")
@@ -521,7 +521,7 @@ class Ui_main_window(object):
     def recall_sc_fn(self):
         print("speedcards recall")
         self.counter = 0
-        pixmap = QtGui.QPixmap("card_images/back.png")
+        pixmap = QtGui.QPixmap("dat/sc/back.png")
         self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
         self.card_no_sc.setText(self._translate("main_window", "--/52"))
         self.recall_sc.setVisible(False)
@@ -752,8 +752,8 @@ class Ui_main_window(object):
         print("entered update_sn")
         if self.counter < 1000 and self.running_applet == True:
             print("counter = " + str(self.counter))
-            print("sn/" + str(self.num_list_sn[self.counter]) + ".wav")
-            QSound.play("sn/" + str(self.num_list_sn[self.counter]) + ".wav")
+            print("dat/sn/" + str(self.num_list_sn[self.counter]) + ".wav")
+            QSound.play("dat/sn/" + str(self.num_list_sn[self.counter]) + ".wav")
             self.counter += 1
             QtCore.QTimer.singleShot(1000, self.update_sn)
 
@@ -792,7 +792,7 @@ class Ui_main_window(object):
         # Get the complete list from word bank
         # randomly select 1000 words from the word bank
         # add it to the table
-        word_list_full = [line.strip() for line in open('wordbank.txt')]
+        word_list_full = [line.strip() for line in open('dat/wordbank.txt')]
         word_list = random.choices(word_list_full, k = 500)
         word_matrix = [[word_list[5*j+i] for i in range(5)] for j in range(100)]
     
