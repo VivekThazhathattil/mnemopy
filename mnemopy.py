@@ -5,9 +5,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtMultimedia import QSound
 import sys
 
+
 class Ui_main_window(object):
     def setupUi(self, main_window):
-        
+
         self.running_applet = False
         self.counter = 0
         self.app_no = 0
@@ -27,13 +28,12 @@ class Ui_main_window(object):
         self.stacked_windows = QtWidgets.QStackedWidget(self.centralwidget)
         self.stacked_windows.setGeometry(QtCore.QRect(0, -20, 731, 441))
         self.stacked_windows.setObjectName("stacked_windows")
-#========================================================================================
+        # ========================================================================================
         self.page_main_menu = QtWidgets.QWidget()
         self.page_main_menu.setObjectName("page_main_menu")
         self.app_descr = QtWidgets.QTextBrowser(self.page_main_menu)
         self.app_descr.setGeometry(QtCore.QRect(100, 130, 551, 81))
-        self.app_descr.setStyleSheet("font: 20pt \"Sans Serif\";\n"
-"")
+        self.app_descr.setStyleSheet('font: 20pt "Sans Serif";\n' "")
         self.app_descr.setObjectName("app_descr")
         self.button_fmw = QtWidgets.QPushButton(self.page_main_menu)
         self.button_fmw.setGeometry(QtCore.QRect(430, 240, 201, 23))
@@ -52,8 +52,9 @@ class Ui_main_window(object):
         self.speed_cards_button.clicked.connect(self.open_window_speed_cards)
         self.app_title = QtWidgets.QLabel(self.page_main_menu)
         self.app_title.setGeometry(QtCore.QRect(200, 60, 331, 71))
-        self.app_title.setStyleSheet("font: 30pt \"Sans Serif\";\n"
-"color: rgb(255, 56, 56)")
+        self.app_title.setStyleSheet(
+            'font: 30pt "Sans Serif";\n' "color: rgb(255, 56, 56)"
+        )
         self.app_title.setObjectName("app_title")
         self.button_fmn = QtWidgets.QPushButton(self.page_main_menu)
         self.button_fmn.setGeometry(QtCore.QRect(260, 240, 141, 23))
@@ -78,7 +79,7 @@ class Ui_main_window(object):
         self.heart_img.setObjectName("heart_img")
         self.stacked_windows.addWidget(self.page_main_menu)
 
-#_______________________ SPEED CARDS____________________________
+        # _______________________ SPEED CARDS____________________________
 
         self.page_sc = QtWidgets.QWidget()
         self.page_sc.setObjectName("page_sc")
@@ -144,7 +145,7 @@ class Ui_main_window(object):
         self.card_image.setGeometry(QtCore.QRect(270, 150, 181, 261))
         self.card_image.setText("")
         pixmap = QtGui.QPixmap("dat/sc/back.png")
-        self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+        self.card_image.setPixmap(pixmap.scaled(150, 300, QtCore.Qt.KeepAspectRatio))
         self.lcdNumber = QtWidgets.QLCDNumber(self.page_sc)
         self.lcdNumber.setGeometry(QtCore.QRect(590, 160, 111, 31))
         self.lcdNumber.setObjectName("lcdNumber")
@@ -159,7 +160,7 @@ class Ui_main_window(object):
         self.card_no_sc.setObjectName("card_no_sc")
         self.stacked_windows.addWidget(self.page_sc)
 
-#___________________5 MINUTE WORDS___________________________
+        # ___________________5 MINUTE WORDS___________________________
 
         self.page_fmn = QtWidgets.QWidget()
         self.page_fmn.setObjectName("page_fmn")
@@ -202,7 +203,7 @@ class Ui_main_window(object):
         self.recall_fmn.setObjectName("recall_fmn")
         self.recall_fmn.setVisible(False)
         self.recall_fmn.clicked.connect(self.recall_fmn_fn)
-        # lcd watch 
+        # lcd watch
         self.timer_fmn = QtWidgets.QLCDNumber(self.page_fmn)
         self.timer_fmn.setGeometry(QtCore.QRect(563, 32, 131, 41))
         self.timer_fmn.setObjectName("timer_fmn")
@@ -210,8 +211,9 @@ class Ui_main_window(object):
         self.disp_panel_fmn = QtWidgets.QTextBrowser(self.page_fmn)
         self.disp_panel_fmn.setGeometry(QtCore.QRect(90, 100, 511, 251))
         self.disp_panel_fmn.setObjectName("disp_panel_fmn")
-        self.disp_panel_fmn.setStyleSheet("font: 13.5pt \"Sans Serif\";\n"
-"color: rgb(255, 255, 255);")
+        self.disp_panel_fmn.setStyleSheet(
+            'font: 13.5pt "Sans Serif";\n' "color: rgb(255, 255, 255);"
+        )
         # page no label
         self.page_no_fmn = QtWidgets.QLabel(self.page_fmn)
         self.page_no_fmn.setGeometry(QtCore.QRect(327, 380, 34, 21))
@@ -226,7 +228,7 @@ class Ui_main_window(object):
 
         self.stacked_windows.addWidget(self.page_fmn)
 
-#___________________15 MINUTE RANDOM WORDS______________________
+        # ___________________15 MINUTE RANDOM WORDS______________________
 
         self.page_fmw = QtWidgets.QWidget()
         self.page_fmw.setObjectName("page_fmw")
@@ -263,16 +265,17 @@ class Ui_main_window(object):
         self.hide_timer_fmw.setVisible(True)
         self.table_fmw = QtWidgets.QTableView(self.page_fmw)
         self.table_fmw.setGeometry(QtCore.QRect(110, 90, 566, 331))
-        self.table_fmw.setStyleSheet("color: rgb(255, 255, 255);\n"
-"gridline-color: rgb(255, 255, 255);")
+        self.table_fmw.setStyleSheet(
+            "color: rgb(255, 255, 255);\n" "gridline-color: rgb(255, 255, 255);"
+        )
         self.table_fmw.setObjectName("table_fmw")
         self.table_fmw.setShowGrid(True)
         self.table_fmw.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.model = QtGui.QStandardItemModel()  # SELECTING THE MODEL 
+        self.model = QtGui.QStandardItemModel()  # SELECTING THE MODEL
         self.table_fmw.setModel(self.model)  # SETTING THE MODEL
         self.stacked_windows.addWidget(self.page_fmw)
 
-#________________ SPOKEN NUMBERS____________________________
+        # ________________ SPOKEN NUMBERS____________________________
 
         self.page_sn = QtWidgets.QWidget()
         self.page_sn.setObjectName("page_sn")
@@ -309,17 +312,21 @@ class Ui_main_window(object):
         self.num_disp_sn.setGeometry(QtCore.QRect(30, 80, 181, 331))
         self.num_disp_sn.setObjectName("num_disp_sn")
         self.num_disp_sn.setVisible(False)
-        self.num_disp_sn.setStyleSheet("font: 13.5pt \"Sans Serif\";\n color: rgb(255, 255, 255);")
+        self.num_disp_sn.setStyleSheet(
+            'font: 13.5pt "Sans Serif";\n color: rgb(255, 255, 255);'
+        )
         self.speaker_icon_sn = QtWidgets.QLabel(self.page_sn)
         self.speaker_icon_sn.setGeometry(QtCore.QRect(350, 120, 161, 141))
         self.speaker_icon_sn.setText("")
         self.speaker_icon_sn.setObjectName("speaker_icon_label")
-        pixmap = QtGui.QPixmap("img/speaker_icon.png")
-        self.speaker_icon_sn.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+        pixmap = QtGui.QPixmap("dat/img/speaker_icon.png")
+        self.speaker_icon_sn.setPixmap(
+            pixmap.scaled(150, 300, QtCore.Qt.KeepAspectRatio)
+        )
         self.speaker_icon_sn.setVisible(False)
         self.stacked_windows.addWidget(self.page_sn)
 
-#___________________BINARY NUMBERS _________________________
+        # ___________________BINARY NUMBERS _________________________
 
         self.page_bn = QtWidgets.QWidget()
         self.page_bn.setObjectName("page_bn")
@@ -352,8 +359,9 @@ class Ui_main_window(object):
         self.disp_panel_bn = QtWidgets.QTextBrowser(self.page_bn)
         self.disp_panel_bn.setGeometry(QtCore.QRect(97, 108, 511, 251))
         self.disp_panel_bn.setObjectName("disp_panel_bn")
-        self.disp_panel_bn.setStyleSheet("font: 13.5pt \"Sans Serif\";\n"
-"color: rgb(255, 255, 255);")
+        self.disp_panel_bn.setStyleSheet(
+            'font: 13.5pt "Sans Serif";\n' "color: rgb(255, 255, 255);"
+        )
         self.button_exit_bn = QtWidgets.QPushButton(self.page_bn)
         self.button_exit_bn.setGeometry(QtCore.QRect(357, 58, 80, 23))
         self.button_exit_bn.setStyleSheet("color: rgb(255, 255, 255);")
@@ -377,7 +385,7 @@ class Ui_main_window(object):
         self.timer_bn.setObjectName("timer_bn")
         self.stacked_windows.addWidget(self.page_bn)
 
-#========================================================================================
+        # ========================================================================================
 
         main_window.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(main_window)
@@ -391,18 +399,18 @@ class Ui_main_window(object):
         self.retranslateUi(main_window)
         QtCore.QMetaObject.connectSlotsByName(main_window)
 
-#========================================================================================
+    # ========================================================================================
 
     def pause_action(self):
         if self.running_applet == True:
             print("Pausing the applet")
             if self.app_no == 1:
-                self.pause_sc.setText(self._translate("main_window","unpause"))
+                self.pause_sc.setText(self._translate("main_window", "unpause"))
             self.running_applet = not self.running_applet
         else:
             print("Unpausing the applet")
             if self.app_no == 1:
-                self.pause_sc.setText(self._translate("main_window","pause"))
+                self.pause_sc.setText(self._translate("main_window", "pause"))
             self.running_applet = not self.running_applet
             self.start_watch()
             if self.app_no == 1:
@@ -423,7 +431,7 @@ class Ui_main_window(object):
     def open_window_15min_words(self):
         print("15min")
         self.stacked_windows.setCurrentIndex(3)
-    
+
     def open_window_sn(self):
         print("spoken numbers")
         self.stacked_windows.setCurrentIndex(4)
@@ -437,24 +445,30 @@ class Ui_main_window(object):
         self.counter = 0
         if self.app_no == 1:
             pixmap = QtGui.QPixmap("dat/sc/back.png")
-            self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+            self.card_image.setPixmap(
+                pixmap.scaled(150, 300, QtCore.Qt.KeepAspectRatio)
+            )
         if self.app_no == 2:
-            self.disp_panel_fmn.setPlainText(self._translate("main_window",""))
-            self.page_no_fmn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
+            self.disp_panel_fmn.setPlainText(self._translate("main_window", ""))
+            self.page_no_fmn.setText(
+                self._translate("main_window", "{}/50".format(self.counter + 1))
+            )
             self.next_fmn.setDisabled(True)
             self.prev_fmn.setDisabled(True)
-            self.begin_sc.setText(self._translate("main_window","begin"))
+            self.begin_sc.setText(self._translate("main_window", "begin"))
         if self.app_no == 3:
             self.table_fmw.setVisible(False)
             self.recall_fmw.setVisible(False)
-            self.begin_fmw.setText(self._translate("main_window","begin"))
+            self.begin_fmw.setText(self._translate("main_window", "begin"))
         if self.app_no == 4:
             self.speaker_icon_sn.setVisible(False)
             self.num_disp_sn.setVisible(False)
             self.recall_sn.setVisible(False)
         if self.app_no == 5:
-            self.disp_panel_bn.setPlainText(self._translate("main_window",""))
-            self.page_no_bn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
+            self.disp_panel_bn.setPlainText(self._translate("main_window", ""))
+            self.page_no_bn.setText(
+                self._translate("main_window", "{}/50".format(self.counter + 1))
+            )
             self.next_bn.setDisabled(True)
             self.prev_bn.setDisabled(True)
 
@@ -469,50 +483,57 @@ class Ui_main_window(object):
             pic_temp = str(self.images[self.counter])
             pixmap = QtGui.QPixmap(pic_temp)
             print(str(self.images[self.counter]))
-            self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+            self.card_image.setPixmap(
+                pixmap.scaled(150, 300, QtCore.Qt.KeepAspectRatio)
+            )
             self.card_image.setObjectName("card_image")
             self.counter += 1
-            self.card_no_sc.setText(self._translate("main_window", "{}/52".format(str(self.counter))))
+            self.card_no_sc.setText(
+                self._translate("main_window", "{}/52".format(str(self.counter)))
+            )
             if not self.checkBox.isChecked() and self.running_applet:
-                QtCore.QTimer.singleShot(self.time_step*1000, self.update_image)
-#        elif self.running_applet == False:
-#            self.counter += 1
-#            update_image(self)
+                QtCore.QTimer.singleShot(self.time_step * 1000, self.update_image)
 
-#                self.running_applet = False
-#                self.stop_watch()
-#                self.begin_sc.setText(self._translate("main_window","begin"))
-#                self.pause_sc.setVisible(False)
-#                self.counter = 0
+    #        elif self.running_applet == False:
+    #            self.counter += 1
+    #            update_image(self)
+
+    #                self.running_applet = False
+    #                self.stop_watch()
+    #                self.begin_sc.setText(self._translate("main_window","begin"))
+    #                self.pause_sc.setVisible(False)
+    #                self.counter = 0
 
     def applet_sc(self):
         self.app_no = 1
         self.time_step = self.doubleSpinBox.value()
-        if self.running_applet == False: # clicked when 'begin' visible, applet not running
-            self.begin_sc.setText(self._translate("main_window","stop"))
+        if (
+            self.running_applet == False
+        ):  # clicked when 'begin' visible, applet not running
+            self.begin_sc.setText(self._translate("main_window", "stop"))
             self.pause_sc.setVisible(True)
             self.time_delay_label.setVisible(True)
             self.doubleSpinBox.setVisible(True)
             self.start_watch()
             self.recall_sc.setVisible(False)
-            ranks = [str(n) for n in range(2,11)] + list('JQKA')
-            suits = ['S', 'D', 'C', 'H']
+            ranks = [str(n) for n in range(2, 11)] + list("JQKA")
+            suits = ["S", "D", "C", "H"]
             Deck = [rank + suit for suit in suits for rank in ranks]
-            
+
             Cards = random.sample(Deck, 52)
             self.images = []
             img_path = "dat/sc/"
-            
+
             for i in range(52):
-                img_name = (Cards[i]+ ".png")
+                img_name = Cards[i] + ".png"
                 full_img_loc = img_path + img_name
                 self.images = self.images + [full_img_loc]
-    
+
             self.counter = 0
             self.running_applet = True
             self.update_image()
-        else: # clicked when 'stop' visible, applet running
-            self.begin_sc.setText(self._translate("main_window","begin"))
+        else:  # clicked when 'stop' visible, applet running
+            self.begin_sc.setText(self._translate("main_window", "begin"))
             self.pause_sc.setVisible(False)
             self.stop_watch()
             self.recall_sc.setVisible(True)
@@ -522,50 +543,50 @@ class Ui_main_window(object):
         print("speedcards recall")
         self.counter = 0
         pixmap = QtGui.QPixmap("dat/sc/back.png")
-        self.card_image.setPixmap(pixmap.scaled(150,300,QtCore.Qt.KeepAspectRatio))
+        self.card_image.setPixmap(pixmap.scaled(150, 300, QtCore.Qt.KeepAspectRatio))
         self.card_no_sc.setText(self._translate("main_window", "--/52"))
         self.recall_sc.setVisible(False)
         self.time_delay_label.setVisible(False)
         self.doubleSpinBox.setVisible(False)
         self.next_sc.setVisible(True)
         self.prev_sc.setVisible(True)
-        self.begin_sc.setText(self._translate("main_window","begin"))
+        self.begin_sc.setText(self._translate("main_window", "begin"))
         self.watch_reset()
         self.checkBox.setChecked(True)
 
     def showLCD(self):
-        text = (str(datetime.timedelta(milliseconds=self.watch_counter))+".000")[:+9]
+        text = (str(datetime.timedelta(milliseconds=self.watch_counter)) + ".000")[:+9]
         if self.app_no == 1:
             self.lcdNumber.setDigitCount(11)
             if not self.is_watch_reset:  # if "is_watch_reset" is False
                 self.lcdNumber.display(text)
             else:
-                self.lcdNumber.display('0:00:00.000')
+                self.lcdNumber.display("0:00:00.000")
         if self.app_no == 2:
             self.timer_fmn.setDigitCount(11)
             if not self.is_watch_reset:  # if "is_watch_reset" is False
                 self.timer_fmn.display(text)
             else:
-                self.timer_fmn.display('0:00:00.000')
+                self.timer_fmn.display("0:00:00.000")
         if self.app_no == 3:
             self.timer_fmw.setDigitCount(11)
             if not self.is_watch_reset:  # if "is_watch_reset" is False
                 self.timer_fmw.display(text)
             else:
-                self.timer_fmw.display('0:00:00.000')
+                self.timer_fmw.display("0:00:00.000")
         if self.app_no == 4:
             self.timer_sn.setDigitCount(11)
             if not self.is_watch_reset:  # if "is_watch_reset" is False
                 self.timer_sn.display(text)
             else:
-                self.timer_sn.display('0:00:00.000')
+                self.timer_sn.display("0:00:00.000")
 
         if self.app_no == 5:
             self.timer_bn.setDigitCount(11)
             if not self.is_watch_reset:  # if "is_watch_reset" is False
                 self.timer_bn.display(text)
             else:
-                self.timer_bn.display('0:00:00.000')
+                self.timer_bn.display("0:00:00.000")
 
     def run_watch(self):
         self.watch_counter += 100
@@ -579,16 +600,18 @@ class Ui_main_window(object):
     def stop_watch(self):
         self.watch_timer.stop()
         self.watch_counter = 0
-            
+
     def watch_reset(self):
         self.watch_timer.stop()
         self.watch_counter = 0
         self.is_watch_reset = True
         self.showLCD()
-    
+
     def display_num_matrix(self):
-        matr2str = '\n'.join('    '.join('%d' %x for x in y) for y in self.num_matrix[self.counter])
-        self.disp_panel_fmn.setPlainText(self._translate("main_window",matr2str))
+        matr2str = "\n".join(
+            "    ".join("%d" % x for x in y) for y in self.num_matrix[self.counter]
+        )
+        self.disp_panel_fmn.setPlainText(self._translate("main_window", matr2str))
 
     def click_next(self):
         if self.counter >= 49:
@@ -598,7 +621,9 @@ class Ui_main_window(object):
             self.next_fmn.setDisabled(False)
             self.prev_fmn.setDisabled(False)
             self.counter += 1
-            self.page_no_fmn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
+            self.page_no_fmn.setText(
+                self._translate("main_window", "{}/50".format(self.counter + 1))
+            )
             self.display_num_matrix()
 
     def click_prev(self):
@@ -609,8 +634,11 @@ class Ui_main_window(object):
             self.prev_fmn.setDisabled(False)
             self.next_fmn.setDisabled(False)
             self.counter -= 1
-            self.page_no_fmn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
+            self.page_no_fmn.setText(
+                self._translate("main_window", "{}/50".format(self.counter + 1))
+            )
             self.display_num_matrix()
+
     def recall_fmn_fn(self):
         self.watch_reset()
         self.counter = 0
@@ -621,14 +649,15 @@ class Ui_main_window(object):
         self.prev_fmn.setVisible(True)
         self.prev_fmn.setDisabled(False)
         self.page_no_fmn.setVisible(True)
-        self.page_no_fmn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
-
+        self.page_no_fmn.setText(
+            self._translate("main_window", "{}/50".format(self.counter + 1))
+        )
 
     def applet_fmn(self):
         self.app_no = 2
         if self.running_applet:
             print("clicked stop:applet_fmn")
-            self.begin_fmn.setText(self._translate("main_window","begin"))
+            self.begin_fmn.setText(self._translate("main_window", "begin"))
             self.running_applet = False
             self.stop_watch()
             self.next_fmn.setVisible(False)
@@ -638,7 +667,7 @@ class Ui_main_window(object):
             self.page_no_fmn.setVisible(False)
         else:
             print("clicked begin:applet_fmn")
-            self.begin_fmn.setText(self._translate("main_window","stop"))
+            self.begin_fmn.setText(self._translate("main_window", "stop"))
             self.counter = 0
             self.running_applet = True
             self.next_fmn.setVisible(True)
@@ -646,34 +675,38 @@ class Ui_main_window(object):
             self.disp_panel_fmn.setVisible(True)
             self.recall_fmn.setVisible(False)
             self.page_no_fmn.setVisible(True)
-            self.num_matrix = np.random.randint(10, size=(50,10,15)) # create a num matrix 15x10x10
+            self.num_matrix = np.random.randint(
+                10, size=(50, 10, 15)
+            )  # create a num matrix 15x10x10
             self.start_watch()
-            self.page_no_fmn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
+            self.page_no_fmn.setText(
+                self._translate("main_window", "{}/50".format(self.counter + 1))
+            )
             self.display_num_matrix()
 
     def manual_mode(self):
         self.next_sc.setVisible(self.checkBox.isChecked())
         self.prev_sc.setVisible(self.checkBox.isChecked())
         if self.checkBox.isChecked():
-             self.time_step = 1704351
-        else :
-             self.time_step = self.doubleSpinBox.value()
+            self.time_step = 1704351
+        else:
+            self.time_step = self.doubleSpinBox.value()
 
     def manual_next(self):
         if self.counter < 52:
             self.update_image()
-        
 
     def manual_prev(self):
         self.counter -= 2
         if self.counter < 0:
             self.counter = 0
         self.update_image()
-   
-    
+
     def display_num_matrix_bn(self):
-        matr2str = '\n'.join('    '.join('%d' %x for x in y) for y in self.num_matrix_bn[self.counter])
-        self.disp_panel_bn.setPlainText(self._translate("main_window",matr2str))
+        matr2str = "\n".join(
+            "    ".join("%d" % x for x in y) for y in self.num_matrix_bn[self.counter]
+        )
+        self.disp_panel_bn.setPlainText(self._translate("main_window", matr2str))
 
     def click_next_bn(self):
         if self.counter >= 49:
@@ -683,7 +716,9 @@ class Ui_main_window(object):
             self.next_bn.setDisabled(False)
             self.prev_bn.setDisabled(False)
             self.counter += 1
-            self.page_no_bn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
+            self.page_no_bn.setText(
+                self._translate("main_window", "{}/50".format(self.counter + 1))
+            )
             self.display_num_matrix_bn()
 
     def click_prev_bn(self):
@@ -694,10 +729,12 @@ class Ui_main_window(object):
             self.prev_bn.setDisabled(False)
             self.next_bn.setDisabled(False)
             self.counter -= 1
-            self.page_no_bn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
+            self.page_no_bn.setText(
+                self._translate("main_window", "{}/50".format(self.counter + 1))
+            )
             self.display_num_matrix_bn()
 
-#fold_here
+    # fold_here
     def recall_bn_fn(self):
         self.watch_reset()
         self.counter = 0
@@ -706,14 +743,15 @@ class Ui_main_window(object):
         self.next_bn.setVisible(True)
         self.prev_bn.setVisible(True)
         self.page_no_bn.setVisible(True)
-        self.page_no_bn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
-
+        self.page_no_bn.setText(
+            self._translate("main_window", "{}/50".format(self.counter + 1))
+        )
 
     def applet_bn(self):
         self.app_no = 5
         print("clicked begin applet bn")
         if self.running_applet:
-            self.begin_bn.setText(self._translate("main_window","begin"))
+            self.begin_bn.setText(self._translate("main_window", "begin"))
             self.running_applet = False
             self.stop_watch()
             self.next_bn.setVisible(False)
@@ -722,7 +760,7 @@ class Ui_main_window(object):
             self.recall_bn.setVisible(True)
             self.page_no_bn.setVisible(False)
         else:
-            self.begin_bn.setText(self._translate("main_window","stop"))
+            self.begin_bn.setText(self._translate("main_window", "stop"))
             self.counter = 0
             self.running_applet = True
             self.next_bn.setVisible(True)
@@ -731,9 +769,13 @@ class Ui_main_window(object):
             self.next_bn.setDisabled(False)
             self.disp_panel_bn.setVisible(True)
             self.page_no_bn.setVisible(True)
-            self.num_matrix_bn = np.random.randint(2, size=(50,10,15)) # create a num matrix 15x10x10
+            self.num_matrix_bn = np.random.randint(
+                2, size=(50, 10, 15)
+            )  # create a num matrix 15x10x10
             self.start_watch()
-            self.page_no_bn.setText(self._translate("main_window","{}/50".format(self.counter+1)))
+            self.page_no_bn.setText(
+                self._translate("main_window", "{}/50".format(self.counter + 1))
+            )
             self.display_num_matrix_bn()
 
     def hide_timer(self):
@@ -758,19 +800,19 @@ class Ui_main_window(object):
             QtCore.QTimer.singleShot(1000, self.update_sn)
 
     def recall_sn_fn(self):
-            self.watch_reset()
-            self.recall_sn.setVisible(False)
-            self.num_disp_sn.setVisible(True)
-            ls2str = ""
-            for i in range(self.counter):
-                ls2str = ls2str + str(i+1) + ") " + str(self.num_list_sn[i]) + "\n"
-            self.num_disp_sn.setPlainText(self._translate("main_window",ls2str))
+        self.watch_reset()
+        self.recall_sn.setVisible(False)
+        self.num_disp_sn.setVisible(True)
+        ls2str = ""
+        for i in range(self.counter):
+            ls2str = ls2str + str(i + 1) + ") " + str(self.num_list_sn[i]) + "\n"
+        self.num_disp_sn.setPlainText(self._translate("main_window", ls2str))
 
     def applet_sn(self):
         self.app_no = 4
         print("clicked begin applet sn")
-        if not self.running_applet: # when begin clicked while not running
-            self.begin_sn.setText(self._translate("main_window","stop"))
+        if not self.running_applet:  # when begin clicked while not running
+            self.begin_sn.setText(self._translate("main_window", "stop"))
             self.counter = 0
             self.running_applet = True
             self.num_list_sn = np.random.randint(10, size=(1000))
@@ -779,8 +821,8 @@ class Ui_main_window(object):
             self.num_disp_sn.setVisible(False)
             self.speaker_icon_sn.setVisible(True)
             self.update_sn()
-        else: # when stop clicked while running
-            self.begin_sn.setText(self._translate("main_window","begin"))
+        else:  # when stop clicked while running
+            self.begin_sn.setText(self._translate("main_window", "begin"))
             self.running_applet = False
             self.stop_watch()
             self.speaker_icon_sn.setVisible(False)
@@ -792,10 +834,10 @@ class Ui_main_window(object):
         # Get the complete list from word bank
         # randomly select 1000 words from the word bank
         # add it to the table
-        word_list_full = [line.strip() for line in open('dat/wordbank.txt')]
-        word_list = random.choices(word_list_full, k = 500)
-        word_matrix = [[word_list[5*j+i] for i in range(5)] for j in range(100)]
-    
+        word_list_full = [line.strip() for line in open("dat/wordbank.txt")]
+        word_list = random.choices(word_list_full, k=500)
+        word_matrix = [[word_list[5 * j + i] for i in range(5)] for j in range(100)]
+
         for value in word_matrix:
             row = []
             for item in value:
@@ -810,70 +852,90 @@ class Ui_main_window(object):
             self.running_applet = True
             self.table_fmw.setVisible(True)
             self.begin_fmw.setVisible(True)
-            self.begin_fmw.setText(self._translate("main_window","stop"))
+            self.begin_fmw.setText(self._translate("main_window", "stop"))
             self.recall_fmw.setVisible(False)
             self.counter = 0
+            for idx in range(100):
+                self.model.removeRow(99 - idx)
             self.start_watch()
-            for index in range(100):
-                self.model.removeRow(index)
             self.populate_fmw()
         else:
             print("clicked stop:applet_fmw")
             self.running_applet = False
             self.table_fmw.setVisible(False)
             self.begin_fmw.setVisible(True)
-            self.begin_fmw.setText(self._translate("main_window","restart"))
+            self.begin_fmw.setText(self._translate("main_window", "restart"))
             self.recall_fmw.setVisible(True)
             self.stop_watch()
 
     def recall_fmw_fn(self, signal):
         def double_click_event():
             print("haha")
-#            row = signal.row()
-#            column = signal.column()
-#            print("row = ", row)
-#            self.table_fmw.showRow(row)
+
+        #            row = signal.row()
+        #            column = signal.column()
+        #            print("row = ", row)
+        #            self.table_fmw.showRow(row)
         self.watch_reset()
         print("recall_fmw")
         self.begin_fmw.setVisible(True)
         self.begin_fmw.setText("restart")
         self.table_fmw.setVisible(True)
         self.recall_fmw.setVisible(False)
-#        for i in range(5):
-#            self.table_fmw.hideColumn(i)
+        #        for i in range(5):
+        #            self.table_fmw.hideColumn(i)
         self.table_fmw.setShowGrid(True)
         self.table_fmw.doubleClicked.connect(double_click_event)
 
-#========================================================================================
+    # ========================================================================================
 
     def retranslateUi(self, main_window):
         self._translate = QtCore.QCoreApplication.translate
         main_window.setWindowTitle(self._translate("main_window", "MainWindow"))
-        self.app_descr.setHtml(self._translate("main_window", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:20pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#ffffff;\">This app is aimed at users who wish to hone their memorizing skills for events like XMT and WMC. Choose from the following list to begin your training session:</span></p></body></html>"))
-        self.button_fmw.setText(self._translate("main_window", "15-minute random list of words"))
+        self.app_descr.setHtml(
+            self._translate(
+                "main_window",
+                '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">\n'
+                '<html><head><meta name="qrichtext" content="1" /><style type="text/css">\n'
+                "p, li { white-space: pre-wrap; }\n"
+                "</style></head><body style=\" font-family:'Sans Serif'; font-size:20pt; font-weight:400; font-style:normal;\">\n"
+                '<p align="center" style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12pt; color:#ffffff;">This app is aimed at users who wish to hone their memorizing skills for events like XMT and WMC. Choose from the following list to begin your training session:</span></p></body></html>',
+            )
+        )
+        self.button_fmw.setText(
+            self._translate("main_window", "15-minute random list of words")
+        )
         self.button_exit.setText(self._translate("main_window", "Exit"))
         self.speed_cards_button.setText(self._translate("main_window", "Speed Cards"))
         self.app_title.setText(self._translate("main_window", "MnemoPy Arena"))
         self.button_fmn.setText(self._translate("main_window", "5-minute numbers"))
-        self.time_delay_label.setText(self._translate("main_window", "Enter time delay :"))
+        self.time_delay_label.setText(
+            self._translate("main_window", "Enter time delay :")
+        )
         self.begin_sc.setText(self._translate("main_window", "begin"))
         self.pause_sc.setText(self._translate("main_window", "pause"))
         self.hide_timer_sc.setText(self._translate("main_window", "hide timer"))
         self.hide_timer_fmw.setText(self._translate("main_window", "hide timer"))
         self.recall_sc.setText(self._translate("main_window", "recall"))
         self.button_quit.setText(self._translate("main_window", "quit to main menu"))
-        self.exit_sc.setToolTip(self._translate("main_window", "<html><head/><body><p>exit the program</p></body></html>"))
-        self.exit_sc.setWhatsThis(self._translate("main_window", "<html><head/><body><p>exit the program</p></body></html>"))
+        self.exit_sc.setToolTip(
+            self._translate(
+                "main_window",
+                "<html><head/><body><p>exit the program</p></body></html>",
+            )
+        )
+        self.exit_sc.setWhatsThis(
+            self._translate(
+                "main_window",
+                "<html><head/><body><p>exit the program</p></body></html>",
+            )
+        )
         self.exit_sc.setText(self._translate("main_window", "exit"))
         self.quit_fmn.setText(self._translate("main_window", "quit to main menu"))
         self.begin_fmn.setText(self._translate("main_window", "begin"))
         self.exit_fmn.setText(self._translate("main_window", "exit"))
         self.prev_fmn.setText(self._translate("main_window", "prev"))
-        self.disp_panel_fmn.setPlainText(self._translate("main_window",""))
+        self.disp_panel_fmn.setPlainText(self._translate("main_window", ""))
         self.next_fmn.setText(self._translate("main_window", "next"))
         self.checkBox.setText(self._translate("main_window", "manual"))
         self.recall_fmn.setText(self._translate("main_window", "recall"))
@@ -900,7 +962,8 @@ class Ui_main_window(object):
         self.next_bn.setText(self._translate("main_window", "next"))
         self.card_no_sc.setText(self._translate("main_window", "--/52"))
 
-#========================================================================================
+
+# ========================================================================================
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

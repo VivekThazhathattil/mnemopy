@@ -23,3 +23,13 @@
 
 
 ![fmw](dat/img/fmw.png?raw=true)
+
+* Random numbers
+
+
+![fmw](dat/img/fmn.png?raw=true)
+
+* Binary numbers
+
+
+![fmw](dat/img/bn.png?raw=true)
