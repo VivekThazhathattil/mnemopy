@@ -12,24 +12,24 @@
 * Main menu
 
 
-![main_menu](dat/img/main_menu.png?raw=true)
+![main_menu](demo/main_menu.png?raw=true)
 
 * Speed cards
 
 
-![sc](dat/img/sc.png?raw=true)
+![sc](demo/sc.png?raw=true)
 
 * Random words
 
 
-![fmw](dat/img/fmw.png?raw=true)
+![fmw](demofmw.png?raw=true)
 
 * Random numbers
 
 
-![fmw](dat/img/fmn.png?raw=true)
+![fmw](demo/fmn.png?raw=true)
 
 * Binary numbers
 
 
-![fmw](dat/img/bn.png?raw=true)
+![fmw](demo/bn.png?raw=true)

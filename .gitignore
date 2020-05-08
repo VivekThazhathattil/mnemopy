@@ -4,3 +4,11 @@ hello.py
 test.py
 test_code.py
 wordbank.txt.bak
+# Compiled python modules.
+*.pyc
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
