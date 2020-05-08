@@ -12,6 +12,7 @@ class Ui_main_window(object):
         self.running_applet = False
         self.counter = 0
         self.app_no = 0
+        self.recall_mode = False
 
         self.watch_counter = 0
         self.is_watch_reset = True
@@ -160,7 +161,7 @@ class Ui_main_window(object):
         self.card_no_sc.setObjectName("card_no_sc")
         self.stacked_windows.addWidget(self.page_sc)
 
-        # ___________________5 MINUTE WORDS___________________________
+        # ___________________5 MINUTE NUMBERS___________________________
 
         self.page_fmn = QtWidgets.QWidget()
         self.page_fmn.setObjectName("page_fmn")
@@ -225,6 +226,14 @@ class Ui_main_window(object):
         self.hide_timer_fmn.setStyleSheet("color: rgb(255, 255, 255);")
         self.hide_timer_fmn.setObjectName("hide_timer_fmn")
         self.hide_timer_fmn.stateChanged.connect(self.hide_timer)
+
+        # show next digit in recall
+        self.show_next_digit_fmn = QtWidgets.QPushButton(self.page_fmn)
+        self.show_next_digit_fmn.setGeometry(QtCore.QRect(660, 160, 31, 31))
+        self.show_next_digit_fmn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.show_next_digit_fmn.setObjectName("show_next_digit")
+        self.show_next_digit_fmn.setVisible(False)
+        self.show_next_digit_fmn.clicked.connect(self.show_next_digit_fmn_fn)
 
         self.stacked_windows.addWidget(self.page_fmn)
 
@@ -383,6 +392,12 @@ class Ui_main_window(object):
         self.timer_bn = QtWidgets.QLCDNumber(self.page_bn)
         self.timer_bn.setGeometry(QtCore.QRect(570, 40, 131, 41))
         self.timer_bn.setObjectName("timer_bn")
+        self.show_next_digit_bn = QtWidgets.QPushButton(self.page_bn)
+        self.show_next_digit_bn.setGeometry(QtCore.QRect(660, 160, 31, 31))
+        self.show_next_digit_bn.setStyleSheet("color: rgb(255, 255, 255);")
+        self.show_next_digit_bn.setObjectName("show_next_digit")
+        self.show_next_digit_bn.setVisible(False)
+        self.show_next_digit_bn.clicked.connect(self.show_next_digit_bn_fn)
         self.stacked_windows.addWidget(self.page_bn)
 
         # ========================================================================================
@@ -442,6 +457,7 @@ class Ui_main_window(object):
 
     def return_to_main_menu(self):
         self.watch_reset()
+        self.recall_mode = False
         self.counter = 0
         if self.app_no == 1:
             pixmap = QtGui.QPixmap("dat/sc/back.png")
@@ -455,7 +471,8 @@ class Ui_main_window(object):
             )
             self.next_fmn.setDisabled(True)
             self.prev_fmn.setDisabled(True)
-            self.begin_sc.setText(self._translate("main_window", "begin"))
+            self.begin_fmn.setText(self._translate("main_window", "begin"))
+            self.show_next_digit_fmn.setVisible(False)
         if self.app_no == 3:
             self.table_fmw.setVisible(False)
             self.recall_fmw.setVisible(False)
@@ -471,6 +488,8 @@ class Ui_main_window(object):
             )
             self.next_bn.setDisabled(True)
             self.prev_bn.setDisabled(True)
+            self.begin_bn.setText(self._translate("main_window", "begin"))
+            self.show_next_digit_bn.setVisible(False)
 
         self.app_no = 0
         self.running_applet = False
@@ -608,10 +627,23 @@ class Ui_main_window(object):
         self.showLCD()
 
     def display_num_matrix(self):
-        matr2str = "\n".join(
+        self.matr2str = "\n".join(
             "    ".join("%d" % x for x in y) for y in self.num_matrix[self.counter]
         )
-        self.disp_panel_fmn.setPlainText(self._translate("main_window", matr2str))
+        self.disp_panel_fmn.setPlainText(self._translate("main_window", self.matr2str))
+
+    def show_next_digit_fmn_fn(self):
+        self.x_count += 1
+        if(self.x_count*self.y_count > 150):
+            self.click_next()
+        if(self.x_count == 16): # dont hardcode this!
+            self.x_count = 1
+            self.y_count += 1
+            self.recall_str += "\n   "
+        else:
+            self.recall_str += "   "
+        self.recall_str += str(self.num_matrix[self.counter][self.y_count-1][self.x_count-1])
+        self.disp_panel_fmn.setPlainText(self._translate("main_window", self.recall_str))
 
     def click_next(self):
         if self.counter >= 49:
@@ -624,7 +656,13 @@ class Ui_main_window(object):
             self.page_no_fmn.setText(
                 self._translate("main_window", "{}/50".format(self.counter + 1))
             )
-            self.display_num_matrix()
+            if self.recall_mode:
+                self.x_count = 0
+                self.y_count = 1
+                self.recall_str = ""
+                self.disp_panel_fmn.setPlainText(self._translate("main_window", self.recall_str))
+            else:
+                self.display_num_matrix()
 
     def click_prev(self):
         if self.counter <= 0:
@@ -637,13 +675,25 @@ class Ui_main_window(object):
             self.page_no_fmn.setText(
                 self._translate("main_window", "{}/50".format(self.counter + 1))
             )
-            self.display_num_matrix()
+            if self.recall_mode:
+                self.x_count = 0
+                self.y_count = 1
+                self.recall_str = ""
+                self.disp_panel_fmn.setPlainText(self._translate("main_window", self.recall_str))
+            else:
+                self.display_num_matrix()
 
     def recall_fmn_fn(self):
         self.watch_reset()
         self.counter = 0
+        self.recall_mode = True
+        self.recall_str = ""
+        self.x_count = 0
+        self.y_count = 1
         self.recall_fmn.setVisible(False)
         self.disp_panel_fmn.setVisible(True)
+        self.disp_panel_fmn.setPlainText(self._translate("main_window", self.recall_str))
+        self.show_next_digit_fmn.setVisible(True)
         self.next_fmn.setVisible(True)
         self.next_fmn.setDisabled(False)
         self.prev_fmn.setVisible(True)
@@ -652,6 +702,7 @@ class Ui_main_window(object):
         self.page_no_fmn.setText(
             self._translate("main_window", "{}/50".format(self.counter + 1))
         )
+
 
     def applet_fmn(self):
         self.app_no = 2
@@ -672,6 +723,8 @@ class Ui_main_window(object):
             self.running_applet = True
             self.next_fmn.setVisible(True)
             self.prev_fmn.setVisible(True)
+            self.next_fmn.setDisabled(False)
+            self.prev_fmn.setDisabled(False)
             self.disp_panel_fmn.setVisible(True)
             self.recall_fmn.setVisible(False)
             self.page_no_fmn.setVisible(True)
@@ -703,10 +756,23 @@ class Ui_main_window(object):
         self.update_image()
 
     def display_num_matrix_bn(self):
-        matr2str = "\n".join(
+        self.matr2str = "\n".join(
             "    ".join("%d" % x for x in y) for y in self.num_matrix_bn[self.counter]
         )
-        self.disp_panel_bn.setPlainText(self._translate("main_window", matr2str))
+        self.disp_panel_bn.setPlainText(self._translate("main_window", self.matr2str))
+
+    def show_next_digit_bn_fn(self):
+        self.x_count += 1
+        if(self.x_count*self.y_count > 150):
+            self.click_next_bn()
+        if(self.x_count == 16): # dont hardcode this!
+            self.x_count = 1
+            self.y_count += 1
+            self.recall_str += "\n   "
+        else:
+            self.recall_str += "   "
+        self.recall_str += str(self.num_matrix_bn[self.counter][self.y_count-1][self.x_count-1])
+        self.disp_panel_bn.setPlainText(self._translate("main_window", self.recall_str))
 
     def click_next_bn(self):
         if self.counter >= 49:
@@ -719,7 +785,13 @@ class Ui_main_window(object):
             self.page_no_bn.setText(
                 self._translate("main_window", "{}/50".format(self.counter + 1))
             )
-            self.display_num_matrix_bn()
+            if self.recall_mode:
+                self.x_count = 0
+                self.y_count = 1
+                self.recall_str = ""
+                self.disp_panel_bn.setPlainText(self._translate("main_window", self.recall_str))
+            else:
+                self.display_num_matrix_bn()
 
     def click_prev_bn(self):
         if self.counter <= 0:
@@ -732,13 +804,25 @@ class Ui_main_window(object):
             self.page_no_bn.setText(
                 self._translate("main_window", "{}/50".format(self.counter + 1))
             )
-            self.display_num_matrix_bn()
+            if self.recall_mode:
+                self.x_count = 0
+                self.y_count = 1
+                self.recall_str = ""
+                self.disp_panel_bn.setPlainText(self._translate("main_window", self.recall_str))
+            else:
+                self.display_num_matrix_bn()
 
     # fold_here
     def recall_bn_fn(self):
         self.watch_reset()
         self.counter = 0
+        self.recall_mode = True
+        self.recall_str = ""
+        self.disp_panel_bn.setPlainText(self._translate("main_window", self.recall_str))
+        self.x_count = 0
+        self.y_count = 1
         self.recall_bn.setVisible(False)
+        self.show_next_digit_bn.setVisible(True)
         self.disp_panel_bn.setVisible(True)
         self.next_bn.setVisible(True)
         self.prev_bn.setVisible(True)
@@ -765,8 +849,9 @@ class Ui_main_window(object):
             self.running_applet = True
             self.next_bn.setVisible(True)
             self.prev_bn.setVisible(True)
-            self.recall_bn.setVisible(False)
             self.next_bn.setDisabled(False)
+            self.prev_bn.setDisabled(False)
+            self.recall_bn.setVisible(False)
             self.disp_panel_bn.setVisible(True)
             self.page_no_bn.setVisible(True)
             self.num_matrix_bn = np.random.randint(
@@ -961,6 +1046,8 @@ class Ui_main_window(object):
         self.recall_bn.setText(self._translate("main_window", "recall"))
         self.next_bn.setText(self._translate("main_window", "next"))
         self.card_no_sc.setText(self._translate("main_window", "--/52"))
+        self.show_next_digit_fmn.setText(self._translate("main_window", ">"))
+        self.show_next_digit_bn.setText(self._translate("main_window", ">"))
 
 
 # ========================================================================================
